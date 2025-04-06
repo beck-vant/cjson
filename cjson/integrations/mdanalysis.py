@@ -26,6 +26,7 @@ def chemical_json_to_mda(cjson_data: dict) -> mda.Universe:
     Returns:
         MDAnalysis Universe object
     """
+    assert type(cjson_data) is dict, "pass the object not the string"
     atoms_data = cjson_data["atoms"]
     elements = np.array(atoms_data["elements"]["number"], dtype=np.int32)
     elements = [number_to_symbol[x] for x in elements]
@@ -146,7 +147,7 @@ def atomgroup_to_cjson(ag: AtomGroup, name: str = None) -> dict:
     cjson = {
         "chemicalJson": 1,
         "atoms": {
-            "elements": {"number": [symbol_to_number[x] for x in ag.elements]},
+            "elements": {"number": [symbol_to_number[x[0]] for x in ag.names]},
             "coords": {
                 "3d": ag.positions.flatten().tolist()  # Flatten to [x1,y1,z1, x2,y2,z2,...]
             },

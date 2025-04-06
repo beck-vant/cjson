@@ -109,6 +109,7 @@ def chemical_json_to_ase(cjson_data: dict) -> Atoms:
     Returns:
         ASE Atoms object with all available information
     """
+    assert type(cjson_data) is dict, "pass the object not the string"
     atoms_data = cjson_data["atoms"]
 
     # Extract basic atom information
