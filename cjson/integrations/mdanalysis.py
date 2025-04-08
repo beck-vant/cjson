@@ -114,20 +114,18 @@ def chemical_json_to_mda(cjson_data: dict) -> mda.Universe:
     # Add unit cell if present
     if "unitCell" in cjson_data:
         cell = cjson_data["unitCell"]
-        if "cellVectors" in cell:
-            u.dimensions = np.array(cell["cellVectors"], dtype=np.float32).reshape(3, 3)
-        else:
-            u.dimensions = np.array(
-                [
-                    cell["a"],
-                    cell["b"],
-                    cell["c"],
-                    cell["alpha"],
-                    cell["beta"],
-                    cell["gamma"],
-                ],
-                dtype=np.float32,
-            )
+
+        u.dimensions = np.array(
+            [
+                cell["a"],
+                cell["b"],
+                cell["c"],
+                cell["alpha"],
+                cell["beta"],
+                cell["gamma"],
+            ],
+            dtype=np.float32,
+        )
 
     return u
 

@@ -38,3 +38,9 @@ print("Recreated:", mdamol)
 
 asemol = cjson.chemical_json_to_ase(mol)
 asemol.write("Recreated_ase.pdb")
+
+
+with open("test.json", "r") as jin:
+    mol = cjson.load(jin.read())
+    mdamol = cjson.chemical_json_to_mda(mol)
+    print(mdamol)
