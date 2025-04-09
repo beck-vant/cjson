@@ -161,11 +161,13 @@ def atomgroup_to_cjson(ag: AtomGroup, name: str = None) -> dict:
     # Add residue information as properties
     residue_data = []
     for res in ag.residues:
+        res_atoms = ag.select_atoms(f"resid {res.resid}")
+
         entry = {
             "resid": int(res.resid) if hasattr(res, "resid") else 1,
             "resname": str(res.resname) if hasattr(res, "resname") else "UNK",
             "segid": str(res.segid) if hasattr(res, "segid") else "SYST",
-            "atoms": [int(i) for i in res.atoms.indices],
+            "atoms": [int(i) for i in res_atoms.atoms.indices],
         }
 
         residue_data.append(entry)
